@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>3D Printed Products</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+  <style>
+    html {
+      background-color: #ffffff;
+    }
+    header {
+      background-color: #000000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 100%;
+      z-index: 1;
+      animation: animate-tiles 3s alternate infinite;
+    }
+    .model-viewer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin:0;
+    }
+    .navbar {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 0;
+    }
+
+    .navbar li {
+      margin: 0 10px;
+      position: relative;
+    }
+
+    .navbar a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .submenu {
+      position: absolute;
+      display: none;
+      z-index: 1;
+      background-color:  #000000;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      color:#ffffff;
+    }
+
+    .has-submenu {
+      position: relative;
+    }
+
+    .has-submenu:hover .submenu {
+      display: block;
+    }
+
+    .navbar li:hover > .submenu,
+    .has-submenu.expanded > .submenu {
+      display: block;
+    }
+
+    .submenu li {
+      margin: 5px 0;
+      list-style-type: none;
+    }
+
+    .submenu a {
+      color:#ffffff;
+      text-decoration: none;
+    }
+
+    .has-submenu > a::after {
+      content: " ▼";
+    }
+
+    .has-submenu.collapsed > a::after {
+      content: " ►";
+    }
+
+    .has-submenu.collapsed .submenu {
+      display: none;
+    }
+
+    .has-submenu.expanded > a::after {
+      content: " ▲";
+    }
+    </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var hasSubmenuItems = document.querySelectorAll(".has-submenu");
+
+      hasSubmenuItems.forEach(function(item) {
+        var submenu = item.querySelector(".submenu");
+
+        item.addEventListener("click", function(e) {
+          e.preventDefault();
+          item.classList.toggle("expanded");
+          submenu.style.display = item.classList.contains("expanded") ? "block" : "none";
+        });
+
+        item.addEventListener("mouseover", function() {
+          item.classList.add("expanded");
+          submenu.style.display = "block";
+        });
+
+        item.addEventListener("mouseout", function() {
+          item.classList.remove("expanded");
+          submenu.style.display = "none";
+        });
+      });
+    }); 
+    document.addEventListener("DOMContentLoaded", function() {
+      var productImages = {
+        "3 x 52mm": [
+          "bottomcompartmentimages/Bottom Compartment Pushed up v6.png",
+          "bottomcompartmentimages/Bottom Compartment Pushed up Front.png",
+          "bottomcompartmentimages/Bottom Compartment Pushed up v6 Side.png", 
+          <model-viewer src="Bottom Compartment Pushed up v7.gltf" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="poster.webp" shadow-intensity="1" exposure="1"> </model-viewer>
+        ],
+        "2 x 52mm": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ],
+        "2 x 52mm with Compartment": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ],
+        "1 x 52mm with Compartment": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ],
+        "2 x 60mm": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ],
+        "1 x 60mm": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ]
+
+        // Add more products and their corresponding image filenames here
+      };
+
+      var mainImageContainer = document.getElementById("mainImageContainer");
+      var imageBarContainer = document.getElementById("imageBarContainer");
+
+      function updateProductImage() {
+        // Get the selected product from the dropdown
+        var selectedProduct = document.getElementById("productSelect").value;
+
+        // Get the corresponding image array
+        var images = productImages[selectedProduct];
+
+        // Clear the previous images
+        mainImageContainer.innerHTML = "";
+        imageBarContainer.innerHTML = "";
+
+        // Create the main image element with the first image
+        var mainImage = document.createElement("img");
+        mainImage.src = images[0];
+        mainImage.classList.add("mainImage");
+        mainImageContainer.appendChild(mainImage);
+
+        // Create the image bar with the remaining images
+        for (var i = 1; i < images.length; i++) {
+          var image = document.createElement("img");
+          image.src = images[i];
+          image.classList.add("imageBarImage");
+
+          // Attach click event listener to each image in the bar
+          image.addEventListener("click", function() {
+            // Get the current main image
+            var currentMainImage = mainImageContainer.getElementsByTagName("img")[0];
+
+            // Swap the source of the clicked image with the main image source
+            var tempSrc = this.src;
+            this.src = currentMainImage.src;
+            currentMainImage.src = tempSrc;
+          });
+
+          imageBarContainer.appendChild(image);
+        }
+      }
+
+      // Attach event listener to the dropdown
+      document.getElementById("productSelect").addEventListener("change", updateProductImage);
+
+      // Initial call to populate the images based on the selected product
+      updateProductImage();
+    });
+  </script>
+</head>
+<body>
+  <h1>Bottom Compartment Designs</h1>
+
+  <label for="productSelect">Select a Design:</label>
+  <select id="productSelect">
+    <option value="3 x 52mm" selected>3 x 52mm</option>
+    <option value="2 x 52mm" selected>2 x 52mm</option>
+    <option value="2 x 52mm with Compartment" selected>2 x 52mm with Compartment</option>
+    <option value="1 x 52mm" selected>1 x 52mm</option>
+    <option value="1 x 52mm with Compartment" selected>1 x 52mm with Compartment</option>
+    <option value="2 x 60mm" selected>2 x 60mm</option>
+    <option value="1 x 60mm" selected>1 x 60mm</option>
+    <!-- Add more product options here -->
+  </select>
+  
+  <div class="mainImageContainer" id="mainImageContainer">
+    <!-- Main product image will be dynamically added here -->
+  </div>
+
+  <div class="imageBarContainer" id="imageBarContainer">
+    <!-- Product images for the image bar will be dynamically added here -->
+  </div>
+<div class = "inclusions">
+  <p>Included Cigarette Lighter & Panels</p>
+  <img>
+  <img>
+</div>
+</body>
+</html>

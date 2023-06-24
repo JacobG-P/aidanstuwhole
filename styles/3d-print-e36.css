@@ -1,0 +1,163 @@
+html{
+  background-color:rgb(255, 255, 255);
+}
+header {
+    position: relative;
+    background-color:#2b2b2b;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    max-width: 100%;
+    z-index: 1;
+    color:#fff;
+}
+.model-viewer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  width:100%;
+}
+
+.navbar {
+  display: flex;
+  padding: 0;
+  list-style-type: none;
+}
+
+.navbar li {
+  margin: 0 10px;
+}
+
+.navbar li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar {
+  float: left;
+  width: 10%; /* Adjust the width as needed */
+  background-color:  #333;
+  padding: 20px;
+  margin-top:10px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #ffffff; /* Adjust the link color as desired */
+}
+.container {
+  display: flex;
+}
+
+.content {
+  margin-left:5%;
+  width: 80%;
+}
+
+.image-row {
+  display:flex;
+
+  margin-top:10px;
+  margin-bottom: 10px; /* Add some spacing between rows of images */
+  justify-content: space-around;
+}
+
+.image-row a {
+  flex: 1;
+  margin: 0 5px; /* Add some spacing between images */
+}
+
+.image-row a img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border: 1px groove #fcfcfc; /* Default border style */
+  animation: animate-tiles 5s alternate infinite;
+}
+.image-label {
+  margin-top: 5px;
+  text-align: center;
+  display: block;
+  font-weight: bold; /* Optional styling for the label */
+}
+
+@keyframes animate-tiles{
+from {
+    box-shadow: 0 0 0 1px blue;
+  }
+  to {
+    box-shadow: 1px 1px 10px 1px red;
+  }
+}
+
+/*Need to update*/
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  margin-bottom: 5%;
+  height: 10vh;
+  width: 100vw;
+}
+#facebook,
+#twitter,
+#linkedin,
+#youtube,
+#instagram,
+#github,
+#soundcloud,
+#mail {
+  font-size: 8em;
+  background-color: #ff0000;
+  color: #fff;
+  box-shadow: 2px 2px 2px #00000080, 10px 1px 12px #00000080,
+    2px 2px 10px #00000080, 2px 2px 3px #00000080, inset 2px 2px 10px #00000080,
+    inset 2px 2px 10px #00000080, inset 2px 2px 10px #00000080,
+    inset 2px 2px 10px #00000080;
+  border-radius: 29px;
+  padding: 11px 19px;
+  margin: 0 40px;
+  animation: animate 3s linear infinite;
+  text-shadow: 0 0 50px #0072ff, 0 0 100px #0072ff, 0 0 150px #0072ff,
+    0 0 200px #0072ff;
+}
+#twitter {
+  animation-delay: 0.3s;
+}
+#facebook {
+  animation-delay: 0.7s;
+}
+#github {
+  animation-delay: 0.1s;
+}
+
+@keyframes animate {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+

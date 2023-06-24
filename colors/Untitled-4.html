@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>3D Printed Products</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 400px;
+    }
+
+    .mainImageContainer {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .modelViewerContainer {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .mainImage {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .modelViewer {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .imageBarContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      height: 150px;
+    }
+
+    .imageBarImage {
+      margin-right: 10px;
+      width: auto;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .inclusions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 400px;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var productImages = {
+        "3 x 52mm": [
+          "bottomcompartmentimages/Bottom Compartment Pushed up v6.png",
+          "bottomcompartmentimages/Bottom Compartment Pushed up Front.png",
+          "bottomcompartmentimages/Bottom Compartment Pushed up v6 Side.png"
+        ],
+        "2 x 52mm": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ],
+        "2 x 52mm with Compartment": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ],
+        "1 x 52mm with Compartment": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ],
+        "2 x 60mm": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ],
+        "1 x 60mm": [
+          "images/Bottom Compartment v4.png",
+          "images/Anti Theft v10.png",
+          "images/52mm-gauge3.jpg"
+        ]
+      };
+
+      var mainImageContainer = document.querySelector(".mainImageContainer");
+      var modelViewerContainer = document.querySelector(".modelViewerContainer");
+      var imageBarContainer = document.querySelector(".imageBarContainer");
+
+      function updateProductImage() {
+        var selectedProduct = document.getElementById("productSelect").value;
+        var images = productImages[selectedProduct];
+
+        mainImageContainer.innerHTML = "";
+        modelViewerContainer.innerHTML = "";
+        imageBarContainer.innerHTML = "";
+
+        var mainImage = document.createElement("img");
+        mainImage.src = images[0];
+        mainImage.classList.add("mainImage");
+        mainImageContainer.appendChild(mainImage);
+
+        var modelViewer = document.createElement("model-viewer");
+        modelViewer.src = "models/Bottom Compartment Pushed up v7.gltf";
+        modelViewer.classList.add("modelViewer");
+        modelViewer.cameraControls = true; // Enable camera controls for user interaction
+        modelViewerContainer.appendChild(modelViewer);
+
+        for (var i = 1; i < images.length; i++) {
+          var image = document.createElement("img");
+          image.src = images[i];
+          image.classList.add("imageBarImage");
+
+          image.addEventListener("click", function() {
+            var currentMainImage = mainImageContainer.getElementsByTagName("img")[0];
+
+            var tempSrc = this.src;
+            this.src = currentMainImage.src;
+            currentMainImage.src = tempSrc;
+          });
+
+          imageBarContainer.appendChild(image);
+        }
+      }
+
+      document.getElementById("productSelect").addEventListener("change", updateProductImage);
+
+      updateProductImage();
+
+      document.getElementById("colorSelect").addEventListener("change", function() {
+        var modelViewer = document.querySelector("model-viewer");
+        modelViewer.style.setProperty("--primary-color", this.value);
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Bottom Compartment Designs</h1>
+
+  <label for="productSelect">Select a Design:</label>
+  <select id="productSelect">
+    <option value="3 x 52mm">3 x 52mm</option>
+    <option value="2 x 52mm">2 x 52mm</option>
+    <option value="2 x 52mm with Compartment">2 x 52mm with Compartment</option>
+    <option value="1 x 52mm with Compartment">1 x 52mm with Compartment</option>
+    <option value="2 x 60mm">2 x 60mm</option>
+    <option value="1 x 60mm">1 x 60mm</option>
+  </select>
+
+  <label for="colorSelect">Select a Color:</label>
+  <select id="colorSelect">
+    <option value="white">White</option>
+    <option value="black">Black</option>
+    <option value="silver">Silver</option>
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+  </select>
+
+  <div class="container">
+    <div class="mainImageContainer" id="mainImageContainer"></div>
+    <div class="modelViewerContainer" id="modelViewerContainer"></div>
+  </div>
+
+  <div class="imageBarContainer" id="imageBarContainer"></div>
+
+  <div class="inclusions">
+    <p>Included Cigarette Lighter & Panels</p>
+    <img src="path/to/your/first/image.jpg">
+    <img src="path/to/your/second/image.jpg">
+  </div>
+</body>
+</html>

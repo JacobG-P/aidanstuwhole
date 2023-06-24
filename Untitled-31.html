@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Printing Services</title>
+  <style>
+    html {
+      background-color: #ffffff;
+    }
+
+    header {
+      background-color: #000000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin:0;
+    }
+    nav {
+      background-color: transparent; /* Transparent background */
+      color: #000; /* Black text color */
+      padding: 10px;
+      text-align: center; /* Center the navigation bar */
+      border: 1px solid #333; /* Add a border */
+      box-sizing: border-box; /* Include border in width calculation */
+    }
+
+    .navbar {
+      list-style-type: none;
+      display: flex; /* Display as flex container */
+      justify-content: center; /* Center items horizontally */
+      align-items: center; /* Center items vertically */
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar li {
+      margin: 0 10px;
+      position: relative;
+    }
+
+    .navbar a {
+      color: #000; /* Black text color */
+      text-decoration: none;
+    }
+
+    .submenu {
+      display: none;
+      list-style-type: none;
+      background-color: transparent; /* Transparent background */
+      color: #000; /* Black text color */
+      padding: 10px;
+      position: absolute;
+      top: 100%; /* Position the submenu below its parent */
+      left: 0; /* Align the submenu with the left edge of the navbar */
+      width: 100%; /* Make the submenu span the full width of the navbar */
+      white-space: nowrap; /* Prevent submenu items from wrapping */
+    }
+
+    .navbar li:hover > .submenu,
+    .has-submenu.expanded > .submenu {
+      display: block;
+    }
+
+    .submenu li {
+      margin: 5px 0;
+    }
+
+    .submenu a {
+      color: #000; /* Black text color */
+      text-decoration: none;
+    }
+
+    .has-submenu > a::after {
+      content: " ▼";
+    }
+
+    .has-submenu.collapsed > a::after {
+      content: " ►";
+    }
+
+    .has-submenu.collapsed .submenu {
+      display: none;
+    }
+
+    .has-submenu.expanded > a::after {
+      content: " ▲";
+    }
+    .container {
+      display: flex;
+      align-items: flex-start;
+      padding: 20px;
+      overflow: hidden;
+      margin-top: 10px; /* Add initial margin */
+      transition: margin 0.3s ease;
+    }
+    .content {
+      flex: 1;
+      margin-left: 20px;
+      text-align: center; /* Center align the content */
+      margin-top:0px;
+    }
+    .description {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+      width: 100%;
+      flex: 1;
+      margin-left: 20px;
+    }
+    .image-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-row div {
+      flex: 0 0 auto;
+      margin: 10px;
+      text-align: center;
+    }
+
+    .image-row img {
+      max-width: 100%;
+      max-height: 200px;
+      margin-bottom: 10px;
+      border: 1px groove #4d4d4d;
+      animation: animate-tiles 5s alternate infinite;
+    }
+
+    @keyframes animate-tiles {
+      from {
+        box-shadow: 0 0 0 1px rgb(0, 0, 0);
+      }
+      to {
+        box-shadow: 1px 1px 10px 1px rgb(255, 255, 255);
+      }
+    }
+    .main-image-container {
+      text-align: center;
+      margin-bottom: 20px; 
+    }
+
+    .main-image {
+      max-width: 400px;
+      max-height: 400px;
+    }
+
+    .image-bar-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      height: 150px;
+    }
+
+    .image-bar-image {
+      margin-right: 10px;
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+    }
+    h1 {
+      margin-top: 0; /* Remove top margin for the "Preview Filament Available" header */
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+</head>
+<body>
+  <header>
+    <h1>3D Printing Services</h1>
+  </header>
+  <!--NEW NAVIGATION BAR WITH ALL LINKS NO SUB CHILDREN TO CHILDREN (EG E36 DOES NOT GO TO TURBO GAUGES, etc)-->
+  <nav>
+    <ul class="navbar">
+      <li class="has-submenu collapsed">
+        <a href="#">Home</a>
+        <ul class="submenu">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contacts</a></li>
+        </ul>
+      </li>
+      <li class="has-submenu collapsed">
+        <a href="#">Products</a>
+        <ul class="submenu">
+          <li><a href="#">E36</a></li>
+          <li><a href="#">E30</a></li>
+          <li><a href="#">RC</a></li>
+          <li><a href="#">Printing Services</a></li>
+        </ul>
+      </li>
+      <li class="has-submenu collapsed">
+        <a href="#">Personal Projects</a>
+        <ul class="submenu">
+          <li><a href="#">RC</a></li>
+          <li><a href="#">E36</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <div class="container">
+    <div class="content">
+      <div class="description">
+        <p>3D Printing – where creativity knows no bounds! Pricing starts at just $10. It's important to note that the final cost may vary depending on factors such as the complexity of your design, the required printing time, and the materials used. Don't fret, though! I'll provide you with an accurate estimate as soon as you share your STL or design file.</p>
+        <p>Currently, we offer a range of PLA filament options including black, white, grey, transparent, carbon fiber black, and glow in the dark. However, if the color or filament you're looking for isn't listed, don't worry! I'm more than happy to expand my palette to accommodate your needs.</p>
+        <p>Feel free to send in your inquiries to 
+          <a href="mailto:jacobgp99@gmail.com?subject=3D%20Printing%20Inquiry&body=Hey%20Jacob%2C%20I%20would%20like%20to%20inquire%20an%20estimation%20for%20this%20file%2Fs.%20%2A%2APlease%20attach%20files%20below%2A%2A" target="_blank">Send Enquiry </a> and let's bring your ideas to life!</p>
+      </div>
+      <h1 style="text-align: center;">Collage of previous work</h1>
+      <div class="image-row">
+        <div>
+          <img src="./serviceimages/Printed.JPG" alt="Turbo Gauges">
+          <figcaption class="image-label">Printed for Jacko</figcaption>
+        </div>
+      </div>
+      <h1>Preview Filament Available</h1>
+      <div class="main-image-container" id="mainImageContainer"></div>
+      <div class="image-bar-container" id="imageBarContainer"></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+    }
+
+    .navbar {
+      list-style-type: none;
+      display: flex;
+    }
+
+    .navbar li {
+      margin: 0 10px;
+      position: relative;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .submenu {
+      display: none;
+      list-style-type: none;
+      background-color: #666;
+      padding: 10px;
+      position: absolute;
+      top: 100%; /* Position the submenu below its parent */
+      left: 0; /* Align the submenu with its parent */
+      min-width: 200px; /* Set a minimum width for the submenu */
+      white-space: nowrap; /* Prevent submenu items from wrapping */
+    }
+
+    .navbar li:hover > .submenu,
+    .has-submenu.expanded > .submenu {
+      display: block;
+    }
+
+    .submenu li {
+      margin: 5px 0;
+    }
+
+    .submenu a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .has-submenu > a::after {
+      content: " ▼";
+    }
+
+    .has-submenu.collapsed > a::after {
+      content: " ►";
+    }
+
+    .has-submenu.collapsed .submenu {
+      display: none;
+    }
+
+    .has-submenu.expanded > a::after {
+      content: " ▲";
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var hasSubmenuItems = document.querySelectorAll(".has-submenu");
+
+      hasSubmenuItems.forEach(function(item) {
+        var submenu = item.querySelector(".submenu");
+
+        item.addEventListener("click", function(e) {
+          e.preventDefault();
+          item.classList.toggle("expanded");
+          submenu.style.display = item.classList.contains("expanded") ? "block" : "none";
+        });
+
+        item.addEventListener("mouseover", function() {
+          item.classList.add("expanded");
+          submenu.style.display = "block";
+        });
+
+        item.addEventListener("mouseout", function() {
+          item.classList.remove("expanded");
+          submenu.style.display = "none";
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <ul class="navbar">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Contacts</a></li>
+      <li><a href="#">About</a></li>
+      <li class="has-submenu collapsed">
+        <a href="#">Products</a>
+        <ul class="submenu">
+          <li class="has-submenu collapsed">
+            <a href="#">E36</a>
+            <ul class="submenu">
+              <li><a href="#">Turbo Gauges</a></li>
+              <li><a href="#">Bottom Compartment</a></li>
+              <li><a href="#">Covers</a></li>
+              <li class="has-submenu collapsed">
+                <a href="#">Jack Covers</a>
+                <ul class="submenu">
+                  <li><a href="#">Sub-Category 1</a></li>
+                  <li><a href="#">Sub-Category 2</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-submenu collapsed">
+            <a href="#">E30</a>
+            <ul class="submenu">
+              <li><a href="#">Sub-Category 1</a></li>
+              <li><a href="#">Sub-Category 2</a></li>
+            </ul>
+          </li>
+          <li class="has-submenu collapsed">
+            <a href="#">RC</a>
+            <ul class="submenu">
+              <li><a href="#">Sub-Category 1</a></li>
+              <li><a href="#">Sub-Category 2</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Printing Services</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</body>
+</html>
